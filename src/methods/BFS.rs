@@ -68,9 +68,10 @@ pub fn BFS(heuristic_w : f64, p:i32) -> State{
             let mut new_state = node.s.clone();
             new_state.play(m);
 
-            let mut best_playout_state = launch_nmcs(1, heuristic_w, false);//playout(new_state.clone(), heuristic_w);
-            let mut best_playout_state_score = best_playout_state.score();
+
             if p >= 0 {
+                let mut best_playout_state = launch_nmcs(1, heuristic_w, false);//playout(new_state.clone(), heuristic_w);
+                let mut best_playout_state_score = best_playout_state.score();
                 for i in 0..p{
                     let playout_state = launch_nmcs(1, heuristic_w, false);//playout(new_state.clone(), heuristic_w);
                     let playout_state_score = playout_state.score();
