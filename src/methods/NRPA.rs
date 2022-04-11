@@ -69,7 +69,6 @@ pub fn nrpa(level : i8, mut policy: HashMap<Move, f64>, initial : bool) -> State
     let mut stscore : f64 = st.score();
 
     if level == 0 {
-        //TODO : appeler plusieurs fois en parallele et garder el meilleurs
         return playout(st, policy);
     }
 
