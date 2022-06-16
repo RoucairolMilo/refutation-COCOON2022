@@ -152,7 +152,7 @@ impl State{
     }
 
     pub fn terminal(& self) -> bool{
-        return self.n_sommet>18;
+        return self.n_sommet>17;
     }
 }
 

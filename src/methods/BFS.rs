@@ -1,5 +1,5 @@
 use nalgebra::min;
-use crate::models::conjecture1::{State, Move};
+use crate::models::conjecture2::{State, Move};
 use crate::tools::calc::softmaxChoice;
 use crate::methods::NMCS::launch_nmcs;
 
@@ -101,7 +101,7 @@ pub fn BFS(heuristic_w : f64, p:i32) -> State{
                         best_score_yet = new_state_score;
                         best_state_yet = new_state.clone();
                         println!("BFS record battu ! {}", best_score_yet);
-                        for i in 0..open_nodes.len() {print!("{} ", open_nodes[open_nodes.len() -1 - i].w);}
+                        //for i in 0..open_nodes.len() {print!("{} ", open_nodes[open_nodes.len() -1 - i].w);}
                         println!(" ");
                     }
                 }
