@@ -1,5 +1,5 @@
 use nalgebra::min;
-use crate::models::conjecture2::{State, Move};
+use crate::models::conjecture4::{State, Move};
 use crate::tools::calc::softmaxChoice;
 use crate::methods::NMCS::launch_nmcs;
 
@@ -51,10 +51,6 @@ pub fn playout(mut st: State, heuristic_w : f64) -> State{
 
 pub fn BFS(heuristic_w : f64, p:i32) -> State{
 
-    if p< 0 {
-        println!("attention, utilisation des scores des état non finaux au lieu des scores de playouts pour déterminer la valeur d'un noeud")
-    }
-
     let mut st = State::new();
     let mut open_nodes = Vec::new();
     open_nodes.push(WS{w : 0.0, s : st.clone()});
@@ -84,7 +80,7 @@ pub fn BFS(heuristic_w : f64, p:i32) -> State{
                 if best_playout_state_score > best_score_yet{
                     best_score_yet = best_playout_state_score;
                     best_state_yet = best_playout_state.clone();
-                    println!("BFS record battu ! {}", best_score_yet);
+                    println!("BFS best score beaten ! {}", best_score_yet);
                 }
 
                 let new_ws = WS{w : best_playout_state_score, s : new_state};
@@ -94,13 +90,13 @@ pub fn BFS(heuristic_w : f64, p:i32) -> State{
                 }
                 open_nodes.insert(i, new_ws);
             }else{
-                let smoothed_score = new_state.smoothedScore(); //une estimation de lintêret de continuer sur cet enfant
+                let smoothed_score = new_state.smoothedScore(); //an estimation on wether keep going on that child
                 if smoothed_score > best_score_yet{
                     let new_state_score = new_state.score();
                     if new_state_score > best_score_yet{
                         best_score_yet = new_state_score;
                         best_state_yet = new_state.clone();
-                        println!("BFS record battu ! {}", best_score_yet);
+                        println!("BFS best score beaten  ! {}", best_score_yet);
                         //for i in 0..open_nodes.len() {print!("{} ", open_nodes[open_nodes.len() -1 - i].w);}
                         println!(" ");
                     }

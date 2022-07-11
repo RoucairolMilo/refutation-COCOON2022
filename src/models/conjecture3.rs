@@ -45,30 +45,7 @@ impl State{
 
         let mut vec :Vec<Move> = Vec::new();
 
-
-        //dans le cas des arbres, ces mouvmeents sont interdits
-        /*
-        for i in 0..self.n_sommet {
-            for j in i..self.n_sommet {
-                if self.adj_mat[(i, j)] == 0.0 {
-                    let m1 = Move{ from : i, to : j};
-                    let m2 = Move{ from : j, to : i};
-                    vec.push(m1);
-                    vec.push(m2);
-                }
-            }
-        }
-
-        for i in 0..self.n_sommet {
-            let m1 = Move{ from : i, to : self.n_sommet};
-            let m2 = Move{ from : self.n_sommet, to : i};
-            vec.push(m1);
-            vec.push(m2);
-        }
-         */
-
-        //seuls mouvement autorisés en cas de construction d'arbre
-
+        //only moves allowed for tree buildings
         for i in 0..self.n_sommet {
             let m1 = Move{ from : i, to : self.n_sommet};
             vec.push(m1);
@@ -161,6 +138,10 @@ impl State{
             saveMatrix::save_matrix("dist2p4", self.dist_matrix());
         }
         return sc.abs() ;
+    }
+
+    pub fn smoothedScore(&self)->f64{
+        return 0.0;
     }
 
     pub fn heuristic(&self, m : Move) -> f64{

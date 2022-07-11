@@ -47,6 +47,7 @@ impl State{
     pub fn legal_moves(& self) ->Vec<Move>{
 
         let mut vec :Vec<Move> = Vec::new();
+        //moves for any graph
         /*
         for i in 0..self.n_sommet {
             for j in i..self.n_sommet {
@@ -66,7 +67,8 @@ impl State{
             vec.push(m2);
         }
         */
-        //mode arbre uniquement
+
+        //moves for trees only
         for i in 0..self.n_sommet {
             let m1 = Move{ /*ind : self.n_sommet as i32,*/ from : i, to : -1 }; //Move{ from : i, to : self.n_sommet};
             //let m1 = Move{ from : i, to : self.n_sommet as i32 };
@@ -133,10 +135,10 @@ impl State{
 
         //println!("biggest match : {}  ", self.biggest_match(self.adj_mat.clone()) as f64);
         if sc < ((self.n_sommet-1) as f64).sqrt() + 1.0 {
-            println!("VICTOIRE");
+            println!("SOLVED");
             println!("--------------------------------------------------------");
             println!("sc : {} >= {}", sc, ((self.n_sommet-1) as f64).sqrt() + 1.0);
-            println!(" matrice d'adjaccence : {}", self.adj_mat);
+            println!(" adjacency matrix : {}", self.adj_mat);
             println!("--------------------------------------------------------");
             graphToDot::adj_matrix_to_dot(self.adj_mat.clone(), "conjecture2p1");
             saveMatrix::save_matrix("adj2p1", self.adj_mat.clone());
@@ -144,6 +146,7 @@ impl State{
 
         return (self.n_sommet*2) as f64 - sc;
     }
+
 
     pub fn smoothedScore(&self) ->f64{return self.score();}
 

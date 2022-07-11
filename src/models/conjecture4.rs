@@ -46,29 +46,7 @@ impl State{
 
         let mut vec :Vec<Move> = Vec::new();
 
-
-        //dans le cas des arbres, ces mouvmeents sont interdits
-        /*
-        for i in 0..self.n_sommet {
-            for j in i..self.n_sommet {
-                if self.adj_mat[(i, j)] == 0.0 {
-                    let m1 = Move{ from : i, to : j};
-                    let m2 = Move{ from : j, to : i};
-                    vec.push(m1);
-                    vec.push(m2);
-                }
-            }
-        }
-
-        for i in 0..self.n_sommet {
-            let m1 = Move{ from : i, to : self.n_sommet};
-            let m2 = Move{ from : self.n_sommet, to : i};
-            vec.push(m1);
-            vec.push(m2);
-        }
-         */
-
-        //seuls mouvement autorisés en cas de construction d'arbre
+        //only moves allowed for trees
 
         for i in 0..self.n_sommet {
             let m1 = Move{ from : i, to : self.n_sommet};
@@ -102,13 +80,13 @@ impl State{
         let DM = self.dist_matrix(); //ok pour matrices de taille 1000 (1 à 3mn)
 
         //println!(" matrice d'adjaccence : {}", self.adj_mat);
-        println!("calcul eigen");
+        println!("eigen computation");
         let eig = SymmetricEigen::new(DM); //q
-        println!("fin calcul eigen");
+        println!("end of eigen computation ");
         //println!("eigenvalues:{}", eig.eigenvalues);
-        println!("calcul charac poly coeffs");
+        println!("charac poly coeffs computation");
         let delta : Vec<f64> = self.charac_poly_coeffs(eig);
-        println!("fin calcul charac poly coeffs");
+        println!("enf of charac poly coeffs computation");
         //delta.sort_by(|a, b| a.partial_cmp(b).unwrap());
         //println!("eigenvalues triées:{:?}", delta);
         //println!("coefficients du polynome caractéristique :{:?}", delta);
@@ -145,7 +123,7 @@ impl State{
         //println!("--------------------------------------------------------");
 
         if sc < seuilBas || sc > seuilHaut {
-            println!("VICTOIRE");
+            println!("SOLVED");
             graphToDot::adj_matrix_to_dot(self.adj_mat.clone(), "conjecture2p7");
             saveMatrix::save_matrix("adj2p7", self.adj_mat.clone());
             saveMatrix::save_matrix("dist2p7", self.dist_matrix());
@@ -157,16 +135,21 @@ impl State{
         return sc ;
     }
 
+    pub fn smoothedScore(&self)->f64{
+        return 0.0;
+    }
+
     pub fn heuristic(&self, m : Move) -> f64{
         return 0.0;
     }
 
     pub fn terminal(& self) -> bool{
         return self.n_sommet>600;
-    } //marche avec 800->16! (et 700->69 aussi, et 650->91, 600 -> 124, marche pas pour 550 -> 287)
+    } //works with length 800->16 ( 700->69 too, and 650->91, 600 -> 124, doesn't work with 550 -> 287)
 
     fn dist_matrix(& self) -> DMatrix<f64>{
-        //on utilise une propriété sur les matrices d'adjacence, si la matrice d'adjaccence à la puissance n ne donne pas 0 dans une case, alors il y a un chein de longueur n dans la case
+        //we use a property on adjaccency matrixes
+        //if the matrix power n doesn't yield 0 on a cell, then there is a path of length n between the two vertices of that cell
         let mut DM : DMatrix<f64> = self.adj_mat.clone();
         let mut An : DMatrix<f64> = self.adj_mat.clone();
         let mut tofill : usize = self.n_sommet*self.n_sommet - self.n_sommet - 2*(self.n_arete); //on retire la diagonale déjà remplie et les sommets déjà liés
@@ -187,8 +170,8 @@ impl State{
                 }
             }
         }
-        println!("PAS BIEN");
-        return DM; //ne devrait jamais arriver en théorie
+        println!("NOT GOOD");
+        return DM; //shouldn't happen in theory
     }
 }
 

@@ -108,11 +108,11 @@ impl State{
 
         let sc = spectre[1] - self.harmonic();
         if sc > 0.00001 {
-            println!("VICTOIRE");
+            println!("VICTORY");
             println!("--------------------------------------------------------");
             println!("sc : {} ", sc);
             println!("{} > {}", spectre[1], self.harmonic());
-            println!(" matrice d'adjaccence : {}", self.adj_mat);
+            println!(" adjacency matrix : {}", self.adj_mat);
             println!("--------------------------------------------------------");
             graphToDot::adj_matrix_to_dot(self.adj_mat.clone(), "graffiti137");
             saveMatrix::save_matrix("adjGraffiti137", self.adj_mat.clone());

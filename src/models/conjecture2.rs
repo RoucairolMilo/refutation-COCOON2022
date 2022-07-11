@@ -48,6 +48,8 @@ impl State{
     pub fn legal_moves(& self) ->Vec<Move>{
 
         let mut vec :Vec<Move> = Vec::new();
+
+        //moves for any graph
         /*
         for i in 0..self.n_sommet {
             for j in i..self.n_sommet {
@@ -66,6 +68,8 @@ impl State{
             vec.push(m1);
             vec.push(m2);
         }*/
+
+        //moves for trees only
         for i in 0..self.n_sommet {
             let m1 = Move{ind : self.n_sommet, from : i}; //Move{ from : i, to : self.n_sommet};
             vec.push(m1);
@@ -109,11 +113,11 @@ impl State{
 
         let sc : f64 = proximity + spectre[(2.0* d /3.0).floor() as usize -1];
         if sc <= 0.0 {
-            println!("VICTOIRE");
+            println!("SOLVED");
             println!("--------------------------------------------------------");
             println!("sc : {}", sc);
-            println!(" matrice d'adjaccence : {}", self.adj_mat);
-            println!(" matrice de distance : {}", self.dist_matrix());
+            println!(" adjacency matrix : {}", self.adj_mat);
+            println!(" distance matrix : {}", self.dist_matrix());
             println!("--------------------------------------------------------");
             graphToDot::adj_matrix_to_dot(self.adj_mat.clone(), "conjecture2p3");
             saveMatrix::save_matrix("adj2p3", self.adj_mat.clone());
@@ -173,7 +177,7 @@ impl State{
 
         let sc : f64 = proximity + interpSpectre[2* d as usize -3];
         if sc <= 0.0 {
-            println!("VICTOIRE ?");
+            println!("SOLVED ?");
         }
 
         //println!("--------------------------------------------------------");
