@@ -140,8 +140,8 @@ impl State{
             println!("sc : {} >= {}", sc, ((self.n_sommet-1) as f64).sqrt() + 1.0);
             println!(" adjacency matrix : {}", self.adj_mat);
             println!("--------------------------------------------------------");
-            graphToDot::adj_matrix_to_dot(self.adj_mat.clone(), "conjecture2p1");
-            saveMatrix::save_matrix("adj2p1", self.adj_mat.clone());
+            graphToDot::adj_matrix_to_dot(self.adj_mat.clone(), "conjecture1");
+            saveMatrix::save_matrix("adj1", self.adj_mat.clone());
         }
 
         return (self.n_sommet*2) as f64 - sc;

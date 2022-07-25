@@ -134,8 +134,8 @@ impl State{
 
         if sc.abs() > 0.1 {
             println!("PAT : {}/{}   PDT : {}/{}", pat, coeffAdjNonZero.len(), pdt, dk.len());
-            saveMatrix::save_matrix("adj2p4", self.adj_mat.clone());
-            saveMatrix::save_matrix("dist2p4", self.dist_matrix());
+            saveMatrix::save_matrix("adj3", self.adj_mat.clone());
+            saveMatrix::save_matrix("dist3", self.dist_matrix());
         }
         return sc.abs() ;
     }

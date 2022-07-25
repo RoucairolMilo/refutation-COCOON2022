@@ -119,16 +119,11 @@ impl State{
             println!(" adjacency matrix : {}", self.adj_mat);
             println!(" distance matrix : {}", self.dist_matrix());
             println!("--------------------------------------------------------");
-            graphToDot::adj_matrix_to_dot(self.adj_mat.clone(), "conjecture2p3");
-            saveMatrix::save_matrix("adj2p3", self.adj_mat.clone());
-            saveMatrix::save_matrix("dist2p3", self.dist_matrix());
+            graphToDot::adj_matrix_to_dot(self.adj_mat.clone(), "conjecture2");
+            saveMatrix::save_matrix("adj2", self.adj_mat.clone());
+            saveMatrix::save_matrix("dist2", self.dist_matrix());
         }
 
-        //println!("--------------------------------------------------------");
-        //println!("sc : {},   {} <= {} <= {}", sc, seuilBas, pdt, seuilHaut);
-        //println!(" matrice d'adjaccence : {}", self.adj_mat);
-        //println!(" matrice de distance : {}", self.dist_matrix());
-        //println!("--------------------------------------------------------");
         return 10.0-sc;
     }
 
@@ -180,11 +175,6 @@ impl State{
             println!("SOLVED ?");
         }
 
-        //println!("--------------------------------------------------------");
-        //println!("sc : {},   {} <= {} <= {}", sc, seuilBas, pdt, seuilHaut);
-        //println!(" matrice d'adjaccence : {}", self.adj_mat);
-        //println!(" matrice de distance : {}", self.dist_matrix());
-        //println!("--------------------------------------------------------");
         return 10.0-sc;
     }
 

@@ -1,4 +1,4 @@
-use crate::models::conjecture4::{State};
+use crate::models::conjecture2::{State};
 use crate::tools::calc::softmaxChoice;
 
 pub struct NMCS{

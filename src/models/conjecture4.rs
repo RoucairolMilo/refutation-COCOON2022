@@ -104,7 +104,7 @@ impl State{
 
         let mut dk : Vec<f64> = Vec::new();
         for k  in 0..self.n_sommet-1 {
-            dk.push(2.0_f64.powi(k as i32)/2.0_f64.powi((self.n_sommet as i32) -2) * delta[k].abs()); //abs possible ici mais aussi plus haut
+            dk.push(2.0_f64.powi(k as i32)/2.0_f64.powi((self.n_sommet as i32) -2) * delta[k].abs());
         }
 
 
@@ -132,8 +132,8 @@ impl State{
         if sc < seuilBas || sc > seuilHaut {
             println!("SOLVED");
             graphToDot::adj_matrix_to_dot(self.adj_mat.clone(), "conjecture2p7");
-            saveMatrix::save_matrix("adj2p7", self.adj_mat.clone());
-            saveMatrix::save_matrix("dist2p7", self.dist_matrix());
+            saveMatrix::save_matrix("adj4", self.adj_mat.clone());
+            saveMatrix::save_matrix("dist4", self.dist_matrix());
         }
 
         //return seuilHaut - sc ;

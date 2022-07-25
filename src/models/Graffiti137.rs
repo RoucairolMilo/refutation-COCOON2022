@@ -108,7 +108,7 @@ impl State{
 
         let sc = spectre[1] - self.harmonic();
         if sc > 0.00001 {
-            println!("VICTORY");
+            println!("SOLVED");
             println!("--------------------------------------------------------");
             println!("sc : {} ", sc);
             println!("{} > {}", spectre[1], self.harmonic());
