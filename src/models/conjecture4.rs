@@ -39,6 +39,11 @@ impl State{
     pub fn play(&mut self, m : Move){
 
         self.add_arete(m.from, m.to);
+
+        //for block/cactus trees
+        //self.add_arete(m.from, m.to+1);
+        //self.add_arete(m.to, m.to+1);
+
         self.seq.push(m);
     }
 
@@ -70,38 +75,40 @@ impl State{
             coeffs[0] -= eig.eigenvalues[k];
         }
         coeffs.reverse();
-        coeffs.push(1.0); //pour le x au bout
+        coeffs.push(1.0); //for the x at the end
+
+        if coeffs.len()%2 == 0 {
+            for e in 0..coeffs.len() {
+                coeffs[e] = - coeffs[e];
+            }
+        }
+
         return coeffs;
     }
 
     pub fn score(& self) -> f64{
 
 
-        let DM = self.dist_matrix(); //ok pour matrices de taille 1000 (1 à 3mn)
+        let DM = self.dist_matrix(); //ok for size 1000 matrixes (1 to 3mn)
 
-        //println!(" matrice d'adjaccence : {}", self.adj_mat);
+        //println!(" adjacency matrix : {}", self.adj_mat);
         println!("eigen computation");
         let eig = SymmetricEigen::new(DM); //q
         println!("end of eigen computation ");
         //println!("eigenvalues:{}", eig.eigenvalues);
         println!("charac poly coeffs computation");
         let delta : Vec<f64> = self.charac_poly_coeffs(eig);
-        println!("enf of charac poly coeffs computation");
+        println!("end of charac poly coeffs computation");
         //delta.sort_by(|a, b| a.partial_cmp(b).unwrap());
-        //println!("eigenvalues triées:{:?}", delta);
-        //println!("coefficients du polynome caractéristique :{:?}", delta);
+        //println!("caracteristic polynom coeffs :{:?}", delta);
 
         let mut dk : Vec<f64> = Vec::new();
         for k  in 0..self.n_sommet-1 {
             dk.push(2.0_f64.powi(k as i32)/2.0_f64.powi((self.n_sommet as i32) -2) * delta[k].abs()); //abs possible ici mais aussi plus haut
         }
-        //println!("d(k):{:?}", Dk);
 
-        // conjecture 2.7 : int(n_xommets/2) <=
-        // index du pic des coefficients normalisés du polynome caractéristique de la matrice de distance du graphe
-        // <= int(n*(1-1/sqrt-5)) + 1
 
-        //trouvons l'index du pic
+        //let's find the peak index
         let mut pdt : usize = 0;
         let mut max = 0.0;
         for i in 0..dk.len() {
@@ -144,7 +151,7 @@ impl State{
     }
 
     pub fn terminal(& self) -> bool{
-        return self.n_sommet>600;
+        return self.n_sommet>800;
     } //works with length 800->16 ( 700->69 too, and 650->91, 600 -> 124, doesn't work with 550 -> 287)
 
     fn dist_matrix(& self) -> DMatrix<f64>{
