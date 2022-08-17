@@ -126,14 +126,10 @@ impl State{
             spectre.push(eig.eigenvalues[k]);
         }
         spectre.sort_by(|a, b| a.partial_cmp(b).unwrap());
-        //println!("eigenvalues triées:{:?}", spectre);
-        //bloque ici, biggest match trop lourd en taille 30
 
         let bm =self.biggest_match(self.adj_mat.clone()) as f64;
         let sc : f64 = spectre[spectre.len()-1] + bm;
-        //println!("sc : {} >= {} , biggest match : {}", sc, ((self.n_sommet-1) as f64).sqrt() + 1.0, bm);
 
-        //println!("biggest match : {}  ", self.biggest_match(self.adj_mat.clone()) as f64);
         if sc < ((self.n_sommet-1) as f64).sqrt() + 1.0 {
             println!("SOLVED");
             println!("--------------------------------------------------------");
