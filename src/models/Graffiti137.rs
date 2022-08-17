@@ -60,7 +60,7 @@ impl State{
             }
         }
 
-        //mode arbre uniquement
+        //tree moves
         for i in 0..self.n_sommet {
             let m1 = Move{
                 ind : self.n_sommet as i32,

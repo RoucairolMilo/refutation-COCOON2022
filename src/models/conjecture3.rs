@@ -80,24 +80,17 @@ impl State{
 
         let DM = self.dist_matrix();
 
-        //println!(" matrice d'adjaccence : {}", self.adj_mat);
-
         let eig = SymmetricEigen::new(DM);
         //println!("eigenvalues:{}", eig.eigenvalues);
 
         let mut delta : Vec<f64> = self.charac_poly_coeffs(eig);
-        //delta.sort_by(|a, b| a.partial_cmp(b).unwrap());
-        //println!("eigenvalues triées:{:?}", delta);
-        //println!("coefficients du polynome caractéristique :{:?}", delta);
 
         let mut dk : Vec<f64> = Vec::new();
         for k  in 0..self.n_sommet-1 {
             dk.push(2.0_f64.powi(k as i32)/2.0_f64.powi((self.n_sommet as i32) -2) * delta[k].abs()); //abs possible ici mais aussi plus haut
         }
-        //println!("d(k):{:?}", Dk);
 
-
-        //trouvons l'index du pic
+        //let's find the peak index
         let mut pdt : usize = 0;
         let mut max = 0.0;
         for i in 0..dk.len() {
@@ -112,7 +105,7 @@ impl State{
 
         let coeffAdj : Vec<f64> = self.charac_poly_coeffs(eigAdj);
 
-        //extraction des nonzero
+        //extract non zero
         let mut coeffAdjNonZero : Vec<f64> = Vec::new();
         for i in 0..coeffAdj.len() {
             if coeffAdj[i] != 0.0 {
@@ -153,15 +146,12 @@ impl State{
     }
 
     fn dist_matrix(& self) -> DMatrix<f64>{
-        //on utilise une propriété sur les matrices d'adjacence, si la matrice d'adjaccence à la puissance n ne donne pas 0 dans une case, alors il y a un chein de longueur n dans la case
         let mut DM : DMatrix<f64> = self.adj_mat.clone();
         let mut An : DMatrix<f64> = self.adj_mat.clone();
         let mut tofill : usize = self.n_sommet*self.n_sommet - self.n_sommet - 2*(self.n_arete); //on retire la diagonale déjà remplie
 
         for n in 2..self.n_sommet {
             An = An*&self.adj_mat;
-
-            //println!(" matrice de distance à n = {}  {}", n, An);
 
             for i in 0..self.n_sommet {
                 for j in 0..i {
@@ -174,7 +164,7 @@ impl State{
                 }
             }
         }
-        return DM; //ne devrait jamais arriver en théorie
+        return DM;
     }
 }
 

@@ -86,8 +86,6 @@ impl State{
         let dm2 = dm.clone();
         let mut d = dm.max();
 
-        //println!(" matrice d'adjaccence : {}", self.adj_mat);
-
         let eig = SymmetricEigen::new(dm);
         //println!("eigenvalues:{}", eig.eigenvalues);
 
@@ -136,8 +134,6 @@ impl State{
         let dm2 = dm.clone();
         let mut d = dm.max();
 
-        //println!(" matrice d'adjaccence : {}", self.adj_mat);
-
         let eig = SymmetricEigen::new(dm);
         //println!("eigenvalues:{}", eig.eigenvalues);
 
@@ -146,7 +142,6 @@ impl State{
             spectre.push(eig.eigenvalues[k]);
         }
         spectre.sort_by(|b, a| a.partial_cmp(b).unwrap());
-        //println!("eigenvalues triées:{:?}", spectre);
 
         let mut minimumDistanceVert = dm2.row(0).sum();
         for i in 1..self.n_sommet {
@@ -183,15 +178,6 @@ impl State{
     pub fn terminal(& self) -> bool{
         return self.n_sommet>210;
     }
-    //TS : objectif 1
-    // 10 -> 0.30640751145803113
-    // 20 -> 0.49046783947813344
-    // 30 -> 0.6071227593691826
-    // 40 -> 0.6654500493786708
-    // 50 -> 0.700446367308521
-    // 100 -> 0.7704388739228177
-    // 250 -> 0.8124342933567834
-    // 500 -> crashe, trop de mémoire allouée
 
     fn dist_matrix(& self) -> DMatrix<f64>{
         //on utilise une propriété sur les matrices d'adjacence, si la matrice d'adjaccence à la puissance n ne donne pas 0 dans une case, alors il y a un chein de longueur n dans la case
@@ -215,7 +201,7 @@ impl State{
                 }
             }
         }
-        return dm; //ne devrait jamais arriver en théorie
+        return dm;
     }
 }
 
