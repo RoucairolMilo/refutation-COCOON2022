@@ -1,5 +1,5 @@
 use nalgebra::min;
-use crate::models::conjecture4::{State, Move};
+use crate::models::Graffiti137::{State, Move};
 use crate::tools::calc::softmaxChoice;
 use crate::methods::NMCS::launch_nmcs;
 
