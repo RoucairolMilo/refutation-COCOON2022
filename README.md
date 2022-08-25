@@ -1,5 +1,5 @@
 # refutation-ECML2022
-Source code of spectral graph theory conjecture refutation with MC
+Source code of spectral graph theory conjecture refutation with MCS
 
 How to use :
 - go in main.rs and uncomment a line
